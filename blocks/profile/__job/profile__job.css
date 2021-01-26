@@ -5,9 +5,14 @@
   line-height: 22px;
 }
 
-@media screen and (max-width: 618px) {
+@media screen and (max-width: 767px) {
   .profile__job {
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 618px) {
+  .profile__job {
     font-size: 14px;
     line-height: 17px;
   }
