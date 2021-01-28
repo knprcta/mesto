@@ -7,6 +7,12 @@
   background-repeat: no-repeat;
   border: 2px solid white;
   padding: 0;
+  transition: opacity .3s ease;
+  border-radius: 2px;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width: 767px) {
