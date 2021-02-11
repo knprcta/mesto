@@ -45,7 +45,7 @@ function getItem(item) {
 
 function render() {
   const html = initialCards.map(getItem);
-  elementsContainer.prepend(...html);
+  elementsContainer.append(...html);
 }
 
 render();
@@ -57,6 +57,8 @@ let nameInput = formProfile.querySelector('.popup__input_name');
 let jobInput = formProfile.querySelector('.popup__input_job');
 let name = document.querySelector('.profile__name');
 let job = document.querySelector('.profile__job');
+let closeButtonProfile = formProfile.querySelector('.popup__close-button');
+
 
 function popupOpen(popup) {
   popup.classList.add('popup_opened');
@@ -70,13 +72,10 @@ function profileEdit() {
   popupOpen(popupProfile);
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
-  let closeButton = formProfile.querySelector('.popup__close-button');
-  closeButton.addEventListener('click', () => {
-    popupClose(popupProfile)
-  });
+
 }
 
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
   evt.preventDefault();
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
@@ -86,16 +85,26 @@ function formSubmitHandler (evt) {
 let addButton = document.querySelector('.profile__add-button');
 let popupMesto = document.querySelector('.popup_mesto');
 let formMesto = popupMesto.querySelector('.popup__container');
+let titleInput = formMesto.querySelector('.popup__input_title');
+let linkInput = formMesto.querySelector('.popup__input_link');
+let closeButtonMesto = formMesto.querySelector('.popup__close-button');
 
-
-function mestoAdd() {
-  popupOpen(popupMesto);
-  let closeButton = formMesto.querySelector('.popup__close-button');
-  closeButton.addEventListener('click', () => {
-    popupClose(popupMesto)
-  });
+function mestoAdd(evt) {
+  evt.preventDefault();
+  const newMesto = getItem({ name: titleInput.value, link: linkInput.value });
+  elementsContainer.prepend(newMesto);
+  popupClose(popupMesto);
 }
 
 editButton.addEventListener('click', profileEdit);
-addButton.addEventListener('click', mestoAdd);
+addButton.addEventListener('click', () => {
+  popupOpen(popupMesto)
+});
 formProfile.addEventListener('submit', formSubmitHandler);
+formMesto.addEventListener('submit', mestoAdd);
+closeButtonProfile.addEventListener('click', () => {
+  popupClose(popupProfile)
+});
+closeButtonMesto.addEventListener('click', () => {
+  popupClose(popupMesto)
+});
