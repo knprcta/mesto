@@ -28,58 +28,25 @@
       <button class="profile__add-button" type="button"></button>
     </section>
 
-    <section class="elements">
-      <article class="element">
-        <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Карачаевск</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/elbrus.png" alt="Эльбрус" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/dombay.png" alt="Домбай" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Домбай</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/elbrus.png" alt="Эльбрус" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/dombay.png" alt="Домбай" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Домбай</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск" />
-        <div class="element__bottom">
-          <h2 class="element__caption">Карачаево-Черкессия</h2>
-          <button class="element__like-button" type="button"></button>
-        </div>
-      </article>
-    </section>
+    <section class="elements"></section>
   </main>
 
   <footer class="footer">
     <p class="footer__copyright">© 2021 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
-    <form class="popup__container" name="popup-form">
+  <template class="template">
+    <article class="element">
+      <img class="element__image">
+      <div class="element__bottom">
+        <h2 class="element__caption"></h2>
+        <button class="element__like-button" type="button"></button>
+      </div>
+    </article>
+  </template>
+
+  <div class="popup popup_profile">
+    <form class="popup__container" name="edit-form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <input class="popup__input popup__input_name" type="text" name="name-input" />
       <input class="popup__input popup__input_job" type="text" name="job-input" />
@@ -87,6 +54,17 @@
       <button class="popup__close-button" type="reset"></button>
     </form>
   </div>
+
+  <div class="popup popup_mesto">
+    <form class="popup__container" name="add-form">
+      <h2 class="popup__title">Новое место</h2>
+      <input class="popup__input popup__input_title" type="text" name="title-input" placeholder="Название" />
+      <input class="popup__input popup__input_link" type="text" name="link-input" placeholder="Ссылка на картинку" />
+      <button class="popup__submit-button" type="submit">Создать</button>
+      <button class="popup__close-button" type="reset"></button>
+    </form>
+  </div>
+
   <script src="./scripts/script.js"></script>
 </body>
 
