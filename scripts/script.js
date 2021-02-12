@@ -33,12 +33,14 @@ function getItem(item) {
   const itemImage = newItem.querySelector('.element__image');
   const imgCaption = newItem.querySelector('.element__caption');
   const likeButton = newItem.querySelector('.element__like-button');
+  const deleteButton = newItem.querySelector('.element__delete-button');
   itemImage.src = item.link;
   itemImage.alt = item.name;
   imgCaption.textContent = item.name;
   likeButton.addEventListener('click', function () {
     likeButton.classList.toggle('element__like-button_active');
   });
+  deleteButton.addEventListener('click', mestoDelete);
 
   return newItem;
 }
@@ -94,6 +96,13 @@ function mestoAdd(evt) {
   const newMesto = getItem({ name: titleInput.value, link: linkInput.value });
   elementsContainer.prepend(newMesto);
   popupClose(popupMesto);
+  titleInput.value = '';
+  linkInput.value = '';
+}
+
+function mestoDelete(evt) {
+  const targetEl = evt.target.closest('.element');
+  targetEl.remove();
 }
 
 editButton.addEventListener('click', profileEdit);
