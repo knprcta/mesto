@@ -41,6 +41,9 @@ function getItem(item) {
     likeButton.classList.toggle('element__like-button_active');
   });
   deleteButton.addEventListener('click', mestoDelete);
+  itemImage.addEventListener('click', () => {
+    picOpen(item)
+  });
 
   return newItem;
 }
@@ -105,6 +108,19 @@ function mestoDelete(evt) {
   targetEl.remove();
 }
 
+let popupPic = document.querySelector('.popup_pic');
+let popupFig = popupPic.querySelector('.popup__figure');
+let popupImage = popupFig.querySelector('.popup__image');
+let popupCaption = popupFig.querySelector('.popup__caption');
+let closeButtonPic = popupFig.querySelector('.popup__close-button');
+
+function picOpen(item) {
+  popupOpen(popupPic);
+  popupImage.src = item.link;
+  popupImage.alt = item.name;
+  popupCaption.textContent = item.name;
+}
+
 editButton.addEventListener('click', profileEdit);
 addButton.addEventListener('click', () => {
   popupOpen(popupMesto)
@@ -116,4 +132,7 @@ closeButtonProfile.addEventListener('click', () => {
 });
 closeButtonMesto.addEventListener('click', () => {
   popupClose(popupMesto)
+});
+closeButtonPic.addEventListener('click', () => {
+  popupClose(popupPic)
 });
