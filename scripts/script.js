@@ -61,14 +61,14 @@ function render() {
 
 render();
 
-let popupProfile = document.querySelector(".popup_profile");
-let formProfile = popupProfile.querySelector(".popup__container");
-let editButton = document.querySelector(".profile__edit-button");
-let nameInput = formProfile.querySelector(".popup__input_name");
-let jobInput = formProfile.querySelector(".popup__input_job");
-let name = document.querySelector(".profile__name");
-let job = document.querySelector(".profile__job");
-let closeButtonProfile = formProfile.querySelector(".popup__close-button");
+const popupProfile = document.querySelector(".popup_profile");
+const formProfile = popupProfile.querySelector(".popup__container");
+const editButton = document.querySelector(".profile__edit-button");
+const nameInput = formProfile.querySelector(".popup__input_name");
+const jobInput = formProfile.querySelector(".popup__input_job");
+const name = document.querySelector(".profile__name");
+const job = document.querySelector(".profile__job");
+const closeButtonProfile = formProfile.querySelector(".popup__close-button");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -91,12 +91,12 @@ function handleProfileSubmit(evt) {
   closePopup(popupProfile);
 }
 
-let addButton = document.querySelector(".profile__add-button");
-let popupPlace = document.querySelector(".popup_mesto");
-let formPlace = popupPlace.querySelector(".popup__container");
-let titleInput = formPlace.querySelector(".popup__input_title");
-let linkInput = formPlace.querySelector(".popup__input_link");
-let closeButtonPlace = formPlace.querySelector(".popup__close-button");
+const addButton = document.querySelector(".profile__add-button");
+const popupPlace = document.querySelector(".popup_mesto");
+const formPlace = popupPlace.querySelector(".popup__container");
+const titleInput = formPlace.querySelector(".popup__input_title");
+const linkInput = formPlace.querySelector(".popup__input_link");
+const closeButtonPlace = formPlace.querySelector(".popup__close-button");
 
 function addPlace(evt) {
   evt.preventDefault();
@@ -112,11 +112,11 @@ function deletePlace(evt) {
   targetEl.remove();
 }
 
-let popupPic = document.querySelector(".popup_pic");
-let popupFig = popupPic.querySelector(".popup__figure");
-let popupImage = popupFig.querySelector(".popup__image");
-let popupCaption = popupFig.querySelector(".popup__caption");
-let closeButtonPic = popupFig.querySelector(".popup__close-button");
+const popupPic = document.querySelector(".popup_pic");
+const popupFig = popupPic.querySelector(".popup__figure");
+const popupImage = popupFig.querySelector(".popup__image");
+const popupCaption = popupFig.querySelector(".popup__caption");
+const closeButtonPic = popupFig.querySelector(".popup__close-button");
 
 function openPic(item) {
   openPopup(popupPic);
