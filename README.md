@@ -12,7 +12,7 @@
 
 - Адаптивная верстка
 - JavaScript
-- Валидация форм с помощью JaveScript
+- Валидация форм с помощью JavaScript
 
 **GitHub Pages**
 
