@@ -9,6 +9,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.21;
+  cursor: pointer;
 }
 
 .popup__submit-button:hover {
@@ -19,4 +20,12 @@
   .popup__submit-button {
     font-size: 14px;
   }
+}
+
+.popup__submit-button:disabled {
+  background-color: white;
+  color: black;
+  opacity: 0.2;
+  border: 1px solid black;
+  cursor: default;
 }
