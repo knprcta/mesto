@@ -74,8 +74,9 @@ function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
-function closePopup(popup) {
+function closePopup(popup, callback = () => {}) {
   popup.classList.remove("popup_opened");
+  callback();
 }
 
 function editProfile() {
@@ -126,17 +127,29 @@ function openPic(item) {
 }
 
 editButton.addEventListener("click", editProfile);
+
 addButton.addEventListener("click", () => {
   openPopup(popupPlace);
 });
+
 formProfile.addEventListener("submit", handleProfileSubmit);
+
 formPlace.addEventListener("submit", addPlace);
+
 closeButtonProfile.addEventListener("click", () => {
-  closePopup(popupProfile);
+  closePopup(popupProfile, () => {
+    hideInputError(formProfile, nameInput);
+    hideInputError(formProfile, jobInput);
+  });
 });
+
 closeButtonPlace.addEventListener("click", () => {
-  closePopup(popupPlace);
+  closePopup(popupPlace, () => {
+    hideInputError(formPlace, titleInput);
+    hideInputError(formPlace, linkInput);
+  });
 });
+
 closeButtonPic.addEventListener("click", () => {
   closePopup(popupPic);
 });

@@ -1,3 +1,4 @@
 {
-  "prettier.proseWrap": "never"
+  "prettier.proseWrap": "never",
+  "liveServer.settings.port": 5501
 }
