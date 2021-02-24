@@ -138,15 +138,15 @@ formPlace.addEventListener("submit", addPlace);
 
 closeButtonProfile.addEventListener("click", () => {
   closePopup(popupProfile, () => {
-    hideInputError(formProfile, nameInput);
-    hideInputError(formProfile, jobInput);
+    hideInputError(formProfile, nameInput, optionsList);
+    hideInputError(formProfile, jobInput, optionsList);
   });
 });
 
 closeButtonPlace.addEventListener("click", () => {
   closePopup(popupPlace, () => {
-    hideInputError(formPlace, titleInput);
-    hideInputError(formPlace, linkInput);
+    hideInputError(formPlace, titleInput, optionsList);
+    hideInputError(formPlace, linkInput, optionsList);
   });
 });
 
