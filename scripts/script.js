@@ -71,34 +71,22 @@ const job = document.querySelector(".profile__job");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  const closeButton = popup.querySelector(".popup__close-button");
-
-  closeButton.addEventListener("click", () => {
-    closePopup(popup);
-  });
 
   document.addEventListener("keydown", closePopupOnEsc);
-  document.addEventListener("click", closePopupOnOverlay);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
 
-  const formElement = popup.querySelector(".popup__container");
-  const inputList = Array.from(popup.querySelectorAll(".popup__input"));
-  inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement, optionsList);
-    inputElement.value = "";
-  });
-
   document.removeEventListener("keydown", closePopupOnEsc);
-  document.removeEventListener("click", closePopupOnOverlay);
 }
 
 function editProfile() {
   openPopup(popupProfile);
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
+  hideInputError(formProfile, nameInput, optionsList);
+  hideInputError(formProfile, jobInput, optionsList);
 }
 
 function handleProfileSubmit(evt) {
@@ -147,17 +135,27 @@ function closePopupOnEsc(evt) {
   }
 }
 
-function closePopupOnOverlay(evt) {
-  const popupOpened = document.querySelector(".popup_opened");
-  if (evt.target.classList.contains("popup")) {
-    closePopup(popupOpened);
-  }
-}
+const popupList = document.querySelectorAll(".popup");
+
+popupList.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
+});
 
 editButton.addEventListener("click", editProfile);
 
 addButton.addEventListener("click", () => {
   openPopup(popupPlace);
+  hideInputError(formPlace, titleInput, optionsList);
+  hideInputError(formPlace, linkInput, optionsList);
+  titleInput.value = "";
+  linkInput.value = "";
 });
 
 formProfile.addEventListener("submit", handleProfileSubmit);
