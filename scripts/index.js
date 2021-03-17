@@ -1,3 +1,5 @@
+import Card from './card.js';
+
 const initialCards = [
   {
     name: "Архыз",
@@ -32,34 +34,45 @@ const initialCards = [
 ];
 
 const elementsContainer = document.querySelector(".elements");
-const templateEl = document.querySelector(".template");
 
-function getItem(item) {
-  const newItem = templateEl.content.cloneNode(true);
-  const itemImage = newItem.querySelector(".element__image");
-  const imgCaption = newItem.querySelector(".element__caption");
-  const likeButton = newItem.querySelector(".element__like-button");
-  const deleteButton = newItem.querySelector(".element__delete-button");
-  itemImage.src = item.link;
-  itemImage.alt = item.name;
-  imgCaption.textContent = item.name;
-  likeButton.addEventListener("click", function () {
-    likeButton.classList.toggle("element__like-button_active");
-  });
-  deleteButton.addEventListener("click", deletePlace);
-  itemImage.addEventListener("click", () => {
-    openPic(item);
-  });
-
-  return newItem;
+function createCard(item) {
+  const card = new Card(item.name, item.link, '.template');
+  return card.generateCard();
 }
 
-function render() {
-  const html = initialCards.map(getItem);
-  elementsContainer.append(...html);
-}
+initialCards.forEach((item) => {
+  const newCard = createCard(item);
+  elementsContainer.append(newCard);
+})
 
-render();
+// const templateEl = document.querySelector(".template");
+
+// function getItem(item) {
+//   const newItem = templateEl.content.cloneNode(true);
+//   const itemImage = newItem.querySelector(".element__image");
+//   const imgCaption = newItem.querySelector(".element__caption");
+//   const likeButton = newItem.querySelector(".element__like-button");
+//   const deleteButton = newItem.querySelector(".element__delete-button");
+//   itemImage.src = item.link;
+//   itemImage.alt = item.name;
+//   imgCaption.textContent = item.name;
+//   likeButton.addEventListener("click", function () {
+//     likeButton.classList.toggle("element__like-button_active");
+//   });
+//   deleteButton.addEventListener("click", deletePlace);
+//   itemImage.addEventListener("click", () => {
+//     openPic(item);
+//   });
+
+//   return newItem;
+// }
+
+// function render() {
+//   const html = initialCards.map(getItem);
+//   elementsContainer.append(...html);
+// }
+
+// render();
 
 const popupProfile = document.querySelector(".popup_profile");
 const formProfile = popupProfile.querySelector(".popup__container");
@@ -69,7 +82,7 @@ const jobInput = formProfile.querySelector(".popup__input_job");
 const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_opened");
 
   document.addEventListener("keydown", closePopupOnEsc);
@@ -114,17 +127,16 @@ function deletePlace(evt) {
   targetEl.remove();
 }
 
-const popupPic = document.querySelector(".popup_pic");
-const popupFig = popupPic.querySelector(".popup__figure");
-const popupImage = popupFig.querySelector(".popup__image");
-const popupCaption = popupFig.querySelector(".popup__caption");
+export const popupPic = document.querySelector(".popup_pic");
+export const popupImage = popupPic.querySelector(".popup__image");
+export const popupCaption = popupPic.querySelector(".popup__caption");
 
-function openPic(item) {
-  openPopup(popupPic);
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
-  popupCaption.textContent = item.name;
-}
+// function openPic(item) {
+//   openPopup(popupPic);
+//   popupImage.src = item.link;
+//   popupImage.alt = item.name;
+//   popupCaption.textContent = item.name;
+// }
 
 function closePopupOnEsc(evt) {
   const popupOpened = document.querySelector(".popup_opened");
