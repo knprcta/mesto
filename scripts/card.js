@@ -8,19 +8,8 @@ export default class Card {
   }
 
   _getTemplate() {
-   const cardElement = document.querySelector('.template').content.querySelector('.element').cloneNode(true);
+   const cardElement = document.querySelector(this._selector).content.querySelector('.element').cloneNode(true);
    return cardElement;
-  }
-
-  generateCard() {
-    this._element = this._getTemplate();
-    this._setEventListeners();
-
-    this._element.querySelector('.element__image').src = this._image;
-    this._element.querySelector('.element__image').alt = this._caption;
-    this._element.querySelector('.element__caption').textContent = this._caption;
-
-    return this._element;
   }
 
   _setEventListeners() {
@@ -50,5 +39,16 @@ export default class Card {
 
   _handleDelete() {
     this._element.closest('.element').remove();
+  }
+
+  generateCard() {
+    this._element = this._getTemplate();
+    this._setEventListeners();
+
+    this._element.querySelector('.element__image').src = this._image;
+    this._element.querySelector('.element__image').alt = this._caption;
+    this._element.querySelector('.element__caption').textContent = this._caption;
+
+    return this._element;
   }
 }
