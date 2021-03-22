@@ -45,9 +45,12 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
 
-    this._element.querySelector('.element__image').src = this._image;
-    this._element.querySelector('.element__image').alt = this._caption;
-    this._element.querySelector('.element__caption').textContent = this._caption;
+    const image = this._element.querySelector('.element__image');
+    const caption = this._element.querySelector('.element__caption');
+
+    image.src = this._image;
+    image.alt = this._caption;
+    caption.textContent = this._caption;
 
     return this._element;
   }

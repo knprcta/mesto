@@ -1,38 +1,6 @@
 import Card from "./Card.js";
 import { optionsList, FormValidator } from "./FormValidator.js";
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+import { initialCards } from "./initialCards.js";
 
 // Добавление карточек из массива
 
@@ -60,6 +28,8 @@ const job = document.querySelector(".profile__job");
 
 function editProfile() {
   openPopup(popupProfile);
+  nameInput.value = "";
+  jobInput.value = "";
   profileValidator.clearForm();
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
@@ -82,15 +52,18 @@ const linkInput = formPlace.querySelector(".popup__input_link");
 
 function addPlace() {
   openPopup(popupPlace);
-  placeValidator.clearForm();
   titleInput.value = "";
   linkInput.value = "";
+  placeValidator.clearForm();
 }
 
 function handlePlaceSubmit(evt) {
   evt.preventDefault();
-  const card = new Card(titleInput.value, linkInput.value, ".template");
-  const newCard = card.generateCard();
+  const card = {
+    name: titleInput.value,
+    link: linkInput.value
+  };
+  const newCard = createCard(card);
   elementsContainer.prepend(newCard);
   closePopup(popupPlace);
 }
