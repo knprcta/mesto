@@ -1,6 +1,6 @@
-import Card from "./Card.js";
-import { optionsList, FormValidator } from "./FormValidator.js";
-import { initialCards } from "./initialCards.js";
+import Card from "../scripts/components/Card.js";
+import { optionsList, FormValidator } from "../scripts/components/FormValidator.js";
+import { initialCards } from "../scripts/utils/constants.js";
 
 // Добавление карточек из массива
 
