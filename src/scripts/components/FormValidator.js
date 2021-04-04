@@ -8,15 +8,12 @@ export const optionsList = {
 
 export class FormValidator {
   constructor(options, formElement) {
-    this._formSelector = options.formSelector;
-    this._inputSelector = options.inputSelector;
-    this._submitButtonSelector = options.submitButtonSelector;
     this._inputErrorClass = options.inputErrorClass;
     this._errorClass = options.errorClass;
 
     this._formElement = formElement;
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(options.inputSelector));
+    this._buttonElement = this._formElement.querySelector(options.submitButtonSelector);
   }
 
   _showInputError(inputElement, errorMessage) {
