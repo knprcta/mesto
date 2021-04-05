@@ -30,3 +30,23 @@ export const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
+export const optionsList = {
+  formSelector: ".popup__container",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit-button",
+  inputErrorClass: "popup__input_no-valid",
+  errorClass: "popup__input-error_active",
+};
+
+export const popupProfileSelector = document.querySelector(".popup_profile");
+export const editButton = document.querySelector(".profile__edit-button");
+export const nameInput = document.querySelector(".popup__input_name");
+export const jobInput = document.querySelector(".popup__input_job");
+
+export const popupPlaceSelector = document.querySelector(".popup_place");
+export const addButton = document.querySelector(".profile__add-button");
+
+export const popupPic = document.querySelector(".popup_pic");
+export const popupImage = popupPic.querySelector(".popup__image");
+export const popupCaption = popupPic.querySelector(".popup__caption");

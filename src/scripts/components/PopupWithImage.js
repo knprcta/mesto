@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import { popupImage, popupCaption } from '../../pages/index.js';
+import { popupImage, popupCaption } from '../utils/constants.js';
 
 
 export default class PopupWithImage extends Popup {

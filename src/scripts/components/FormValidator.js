@@ -1,12 +1,4 @@
-export const optionsList = {
-  formSelector: ".popup__container",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit-button",
-  inputErrorClass: "popup__input_no-valid",
-  errorClass: "popup__input-error_active",
-};
-
-export class FormValidator {
+export default class FormValidator {
   constructor(options, formElement) {
     this._inputErrorClass = options.inputErrorClass;
     this._errorClass = options.errorClass;

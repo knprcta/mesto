@@ -1,132 +1,80 @@
 import Card from "../scripts/components/Card.js";
-import { optionsList, FormValidator } from "../scripts/components/FormValidator.js";
-import { initialCards } from "../scripts/utils/constants.js";
+import FormValidator from "../scripts/components/FormValidator.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import Section from "../scripts/components/Section.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import { initialCards, editButton, addButton, nameInput, jobInput, optionsList, popupProfileSelector, popupPlaceSelector } from "../scripts/utils/constants.js";
 
-// Добавление карточек из массива
+// экземпляр класса Section для блока с карточками
 
-const elementsContainer = document.querySelector(".elements");
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (item) => new Card(item.name, item.link, ".template", {
+    handleCardClick: () => {
+      const popupImg = new PopupWithImage(item, ".popup_pic");
+      popupImg.open();
+    }
+  }).generateCard()
+}, ".elements")
 
-function createCard(item) {
-  const card = new Card(item.name, item.link, ".template");
-  return card.generateCard();
-}
+cardsList.renderItems();
 
-initialCards.forEach((item) => {
-  const newCard = createCard(item);
-  elementsContainer.append(newCard);
-});
+// Экземпляр класса UserInfo
 
-// Попап редактирование профиля
+const user = new UserInfo({
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__job"
+})
 
-const popupProfile = document.querySelector(".popup_profile");
-const formProfile = popupProfile.querySelector(".popup__container");
-const editButton = document.querySelector(".profile__edit-button");
-const nameInput = formProfile.querySelector(".popup__input_name");
-const jobInput = formProfile.querySelector(".popup__input_job");
-const name = document.querySelector(".profile__name");
-const job = document.querySelector(".profile__job");
+// Экземпляр класса PopupWithForm для профиля 
 
-function editProfile() {
-  openPopup(popupProfile);
-  nameInput.value = "";
-  jobInput.value = "";
-  profileValidator.clearForm();
-  nameInput.value = name.textContent;
-  jobInput.value = job.textContent;
-}
-
-function handleProfileSubmit(evt) {
-  evt.preventDefault();
-  name.textContent = nameInput.value;
-  job.textContent = jobInput.value;
-  closePopup(popupProfile);
-}
-
-// Попап добавления новой карточки
-
-const addButton = document.querySelector(".profile__add-button");
-const popupPlace = document.querySelector(".popup_place");
-const formPlace = popupPlace.querySelector(".popup__container");
-const titleInput = formPlace.querySelector(".popup__input_title");
-const linkInput = formPlace.querySelector(".popup__input_link");
-
-function addPlace() {
-  openPopup(popupPlace);
-  titleInput.value = "";
-  linkInput.value = "";
-  placeValidator.clearForm();
-}
-
-function handlePlaceSubmit(evt) {
-  evt.preventDefault();
-  const card = {
-    name: titleInput.value,
-    link: linkInput.value
-  };
-  const newCard = createCard(card);
-  elementsContainer.prepend(newCard);
-  closePopup(popupPlace);
-}
-
-// Попап с картинкой
-
-export const popupPic = document.querySelector(".popup_pic");
-export const popupImage = popupPic.querySelector(".popup__image");
-export const popupCaption = popupPic.querySelector(".popup__caption");
-
-// Открытие попапа
-
-export function openPopup(popup) {
-  popup.classList.add("popup_opened");
-
-  document.addEventListener("keydown", closePopupOnEsc);
-}
-
-// Закрытие попапа
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-
-  document.removeEventListener("keydown", closePopupOnEsc);
-}
-
-// Закрытие попапа нажатием на Esc
-
-function closePopupOnEsc(evt) {
-  const popupOpened = document.querySelector(".popup_opened");
-  if (evt.key === "Escape") {
-    closePopup(popupOpened);
+const popupProfile = new PopupWithForm({
+  handleFormSubmit: (item) => {
+    user.setUserInfo(item);
+    popupProfile.close();
   }
+}, ".popup_profile")
+
+const editProfileInfo = () => {
+  const profileInfo = user.getUserInfo();
+  nameInput.value = profileInfo.name;
+  jobInput.value = profileInfo.job;
+  profileValidator.clearForm();
+  popupProfile.open();
 }
 
-// Закрытие попапа кликом на оверлей и кнопку закрытия
+// Экземпляр класса PopupWithForm для добавления карточки
 
-const popupList = document.querySelectorAll(".popup");
-
-popupList.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains("popup__close-button")) {
-      closePopup(popup);
-    }
-  });
-});
+const popupPlace = new PopupWithForm({
+  handleFormSubmit: (item) => {
+    const newCard = new Card(item.title, item.link, ".template", {
+      handleCardClick: () => {
+        const popupImg = new PopupWithImage(item, ".popup_pic");
+        popupImg.open();
+      }
+    }).generateCard();
+    
+    cardsList.addItem(newCard);
+    popupPlace.close();
+  }
+}, ".popup_place")
 
 // Слушатели
 
-editButton.addEventListener("click", editProfile);
-addButton.addEventListener("click", addPlace);
-formProfile.addEventListener("submit", handleProfileSubmit);
-formPlace.addEventListener("submit", handlePlaceSubmit);
+editButton.addEventListener('click', editProfileInfo);
+
+addButton.addEventListener('click', () => {
+  placeValidator.clearForm();
+  popupPlace.open();
+})
 
 // Валидация формы «Редактировать профиль»
 
-const profileValidator = new FormValidator(optionsList, popupProfile);
+const profileValidator = new FormValidator(optionsList, popupProfileSelector);
 profileValidator.enableValidation();
 
 // Валидация формы «Новое место»
 
-const placeValidator = new FormValidator(optionsList, popupPlace);
+const placeValidator = new FormValidator(optionsList, popupPlaceSelector);
 placeValidator.enableValidation();

@@ -1,10 +1,9 @@
-import { popupPic, popupImage, popupCaption, openPopup } from '../../pages/index.js';
-
 export default class Card {
-  constructor(name, link, selector) {
+  constructor(name, link, selector, { handleCardClick }) {
     this._caption = name;
     this._image = link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -13,10 +12,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._handleOpenImg();
-    });
-
     this._element.querySelector('.element__like-button').addEventListener('click', () => {
       this._handleLike();
     });
@@ -24,13 +19,10 @@ export default class Card {
     this._element.querySelector('.element__delete-button').addEventListener('click', () => {
       this._handleDelete();
     });
-  }
 
-  _handleOpenImg() {
-    openPopup(popupPic);
-    popupImage.src = this._image;
-    popupImage.alt = this._caption;
-    popupCaption.textContent = this._caption;
+    this._element.querySelector('.element__image').addEventListener('click', () => {
+      this._handleCardClick();
+    })
   }
 
   _handleLike() {
