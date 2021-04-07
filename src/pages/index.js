@@ -16,18 +16,30 @@ import {
   popupPlaceSelector,
 } from "../scripts/utils/constants.js";
 
-// экземпляр класса Section для блока с карточками
+// Попап с картинкой
+
+const popupImg = new PopupWithImage(".popup_pic");
+
+// Функция создания карточки
+
+const createCard = (item) => {
+  const newCard = new Card(item, ".template", {
+    handleCardClick: () => {
+      popupImg.open(item);
+    }
+  });
+  return newCard.generateCard();
+};
+
+// Экземпляр класса Section для блока с карточками
 
 const cardsList = new Section(
   {
     items: initialCards,
-    renderer: (item) =>
-      new Card(item.name, item.link, ".template", {
-        handleCardClick: () => {
-          const popupImg = new PopupWithImage(item.name, item.link, ".popup_pic");
-          popupImg.open();
-        },
-      }).generateCard(),
+    renderer: (item) => {
+      const card = createCard(item);
+      cardsList.addItem(card);
+    }
   },
   ".elements"
 );
@@ -66,14 +78,8 @@ const editProfileInfo = () => {
 const popupPlace = new PopupWithForm(
   {
     handleFormSubmit: (item) => {
-      const newCard = new Card(item.title, item.link, ".template", {
-        handleCardClick: () => {
-          const popupImg = new PopupWithImage(item.title, item.link, ".popup_pic");
-          popupImg.open();
-        },
-      }).generateCard();
-
-      cardsList.addItem(newCard);
+      const card = createCard(item);
+      cardsList.addItem(card);
       popupPlace.close();
     },
   },
@@ -88,6 +94,10 @@ addButton.addEventListener("click", () => {
   placeValidator.clearForm();
   popupPlace.open();
 });
+
+popupImg.setEventListeners();
+popupProfile.setEventListeners();
+popupPlace.setEventListeners();
 
 // Валидация формы «Редактировать профиль»
 
