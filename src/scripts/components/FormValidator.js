@@ -70,4 +70,14 @@ export default class FormValidator {
       this._hideInputError(inputElement);
     });
   }
+
+  loading(text) {
+    this._buttonElement.textContent = text;
+    this._buttonElement.setAttribute("disabled", true);
+  }
+
+  finish(text) {
+    this._buttonElement.textContent = text;
+    this._buttonElement.removeAttribute("disabled");
+  }
 };
